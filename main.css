@@ -1,0 +1,11 @@
+html {
+    height: 100vh;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    height: 100vh;
+    margin-bottom: 30px;
+    line-height: normal;
+    scroll-behavior: smooth;
+}
