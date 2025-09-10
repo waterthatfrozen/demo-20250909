@@ -10,6 +10,27 @@ const swaggerOptions = require('./swaggerDef');
 const app = express();
 const api = express.Router();
 
+// CORS middleware (whitelist your site and localhost for dev)
+const allowedOrigins = new Set([
+  'https://waterthatfrozen.github.io',
+  'http://localhost:5000',
+  'http://localhost:3000'
+]);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send('');
+  }
+  next();
+});
+
 // Constants
 const DEMO_SERVICE = 'https://siit-smart-city.azurewebsites.net';
 
