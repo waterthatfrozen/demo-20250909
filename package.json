@@ -1,19 +1,12 @@
 {
   "name": "bem-demo",
   "version": "1.0.0",
-  "description": "demo for backend proxy project",
-  "main": "server.js",
+  "description": "Firebase Hosting + Functions app",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "emulate": "firebase emulators:start --only functions,hosting",
+    "deploy": "firebase deploy --only functions,hosting"
   },
   "author": "Paphana Y.",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^1.11.0",
-    "dotenv": "^17.2.2",
-    "express": "^5.1.0",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
-  }
+  "license": "ISC"
 }

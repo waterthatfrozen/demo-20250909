@@ -1,10 +1,11 @@
-// swaggerDef.js
+// swaggerDef.js for Cloud Functions
+const path = require('path');
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-    title: 'Demo BEM API Documentation',
-    version: '1.0.0',
-    description: 'Documentation for Demo BEM API',
+        title: 'Demo BEM API Documentation',
+        version: '1.0.0',
+        description: 'Documentation for Demo BEM API',
     },
     components: {
         schemas: {
@@ -36,16 +37,18 @@ const swaggerDefinition = {
         }
     },
     servers: [
-    {
-        url: 'http://localhost:3500/api', // Replace with your API base URL
-        description: 'Development server',
-    },
+        {
+            url: '/api',
+            description: 'Firebase Hosting rewrite to Cloud Functions',
+        },
     ],
 };
 
 const options = {
     swaggerDefinition,
-    apis: ['./index.js'], // Path to your API route files
+    apis: [path.join(__dirname, 'index.js')],
 };
 
 module.exports = options;
+
+
