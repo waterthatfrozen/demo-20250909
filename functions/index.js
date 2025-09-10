@@ -11,17 +11,23 @@ const swaggerOptions = require('./swaggerDef');
 const app = express();
 const api = express.Router();
 
-// CORS middleware using official package
+// CORS middleware using official package (restrict to GitHub Pages + localhost)
+const allowedOrigins = [
+  'https://waterthatfrozen.github.io',
+  /^http:\/\/localhost(?::\d+)?$/
+];
 const corsOptions = {
-  origin: [
-    'https://waterthatfrozen.github.io',
-    'http://localhost:5500',
-    'http://localhost:5000',
-    'http://localhost:3000'
-  ],
-  methods: ['GET'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow curl/non-browser
+    const isAllowed = allowedOrigins.some((entry) =>
+      typeof entry === 'string' ? entry === origin : entry.test(origin)
+    );
+    return isAllowed ? callback(null, true) : callback(new Error('Not allowed by CORS'), false);
+  },
+  methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: false,
+  maxAge: 86400,
 };
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
