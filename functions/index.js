@@ -13,14 +13,13 @@ const api = express.Router();
 
 // CORS middleware using official package (allow all origins)
 const corsOptions = {
-  origin: '*',
+  origin: true,
   methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: false,
   maxAge: 86400,
 };
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 // Constants
 const DEMO_SERVICE = 'https://siit-smart-city.azurewebsites.net';
